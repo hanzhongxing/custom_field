@@ -1,6 +1,5 @@
 com/customfield/service/CustomFieldService.class
 com/customfield/util/FileStorageUtil.class
-com/customfield/controller/CustomFieldController.class
 com/customfield/Application.class
 com/customfield/util/FileStorageUtil$1.class
 com/customfield/model/CustomField.class

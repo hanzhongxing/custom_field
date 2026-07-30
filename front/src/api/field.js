@@ -38,3 +38,7 @@ export function updateSort(keys) {
 export function simulateExpression(data) {
   return api.post('/fields/simulate', data)
 }
+
+export function evaluateAll(env) {
+  return api.post('/fields/evaluateAll', env)
+}

@@ -1,7 +1,9 @@
 {
   "dependencies" : {
     "custom_item_1" : [ ],
-    "custom_item_2" : [ "custom_item_1" ]
+    "custom_item_4" : [ ],
+    "custom_item_2" : [ "custom_item_1" ],
+    "custom_item_3" : [ "custom_item_1" ]
   },
-  "executionOrder" : [ "custom_item_1", "custom_item_2" ]
+  "executionOrder" : [ "custom_item_1", "custom_item_4", "custom_item_2", "custom_item_3" ]
 }

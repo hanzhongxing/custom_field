@@ -15,7 +15,24 @@
           <el-tag :type="getTypeTag(row.type)">{{ row.type }}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column prop="expression" label="表达式" min-width="200" />
+      <el-table-column prop="expression" label="表达式" min-width="150" />
+      <el-table-column label="当前值 / 计算结果" min-width="180">
+        <template #default="{ row }">
+          <template v-if="!row.expression">
+            <el-input 
+              v-model="env[row.key]" 
+              @input="handleEnvInput" 
+              placeholder="输入基础值" 
+              size="small"
+            />
+          </template>
+          <template v-else>
+            <el-tag type="info" style="font-size:14px; font-weight:bold;">
+              {{ env[row.key] !== undefined ? env[row.key] : '-' }}
+            </el-tag>
+          </template>
+        </template>
+      </el-table-column>
       <el-table-column prop="status" label="状态" width="100" align="center">
         <template #default="{ row }">
           <el-switch
@@ -48,19 +65,49 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { Plus } from '@element-plus/icons-vue'
-import { getFields, saveField, deleteField, updateSort } from '../api/field'
+import { getFields, saveField, deleteField, updateSort, evaluateAll } from '../api/field'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import FieldEditDialog from './FieldEditDialog.vue'
 
 const fields = ref([])
+const env = ref({}) // Stores input and calculated values
 const loading = ref(false)
 const dialogVisible = ref(false)
 const currentField = ref(null)
+
+let debounceTimer = null
+const handleEnvInput = () => {
+  if (debounceTimer) clearTimeout(debounceTimer)
+  debounceTimer = setTimeout(() => {
+    runEvaluateAll()
+  }, 500)
+}
+
+const runEvaluateAll = async () => {
+  try {
+    const formattedEnv = {}
+    for (const k in env.value) {
+      const val = env.value[k]
+      formattedEnv[k] = isNaN(Number(val)) ? val : Number(val)
+    }
+    const result = await evaluateAll(formattedEnv)
+    env.value = result
+  } catch (e) {
+    ElMessage.error('计算失败: ' + e.message)
+  }
+}
 
 const fetchData = async () => {
   loading.value = true
   try {
     fields.value = await getFields()
+    // Initialize env with empty strings for base fields if they are not already set
+    fields.value.forEach(f => {
+      if (!f.expression && env.value[f.key] === undefined) {
+        env.value[f.key] = ''
+      }
+    })
+    runEvaluateAll() // Initial calculation
   } catch (e) {
     ElMessage.error('获取列表失败: ' + e.message)
   } finally {

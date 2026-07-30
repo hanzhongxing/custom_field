@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/fields")
@@ -60,6 +61,15 @@ public class CustomFieldController {
         try {
             Object result = expressionService.dryRun(request.getExpression(), request.getEnv());
             return Result.success(result);
+        } catch (Exception e) {
+            return Result.error(500, e.getMessage());
+        }
+    }
+
+    @PostMapping("/evaluateAll")
+    public Result<Map<String, Object>> evaluateAll(@RequestBody Map<String, Object> env) {
+        try {
+            return Result.success(customFieldService.evaluateAll(env));
         } catch (Exception e) {
             return Result.error(500, e.getMessage());
         }

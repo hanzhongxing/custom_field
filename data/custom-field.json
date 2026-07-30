@@ -14,4 +14,20 @@
   "expression" : "custom_item_1*2",
   "status" : "ENABLED",
   "sortOrder" : 2
+}, {
+  "key" : "custom_item_3",
+  "name" : "4倍基础天数",
+  "description" : "",
+  "type" : "NUMERIC",
+  "expression" : "custom_item_1*4",
+  "status" : "ENABLED",
+  "sortOrder" : 3
+}, {
+  "key" : "custom_item_4",
+  "name" : "当前日期",
+  "description" : "当前日期（yyyy-MM-dd）",
+  "type" : "DATE",
+  "expression" : "sysdate()",
+  "status" : "ENABLED",
+  "sortOrder" : 4
 } ]

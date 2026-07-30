@@ -161,4 +161,28 @@ public class CustomFieldService {
         topoOrder.add(node); // post-order
         return false;
     }
+
+    public Map<String, Object> evaluateAll(Map<String, Object> initialEnv) {
+        List<CustomField> fields = fileStorageUtil.readCustomFields();
+        Map<String, CustomField> fieldMap = fields.stream().collect(Collectors.toMap(CustomField::getKey, f -> f));
+        FieldRelation relation = fileStorageUtil.readFieldRelation();
+        
+        Map<String, Object> env = new HashMap<>(initialEnv != null ? initialEnv : new HashMap<>());
+
+        for (String key : relation.getExecutionOrder()) {
+            CustomField field = fieldMap.get(key);
+            if (field == null || "DISABLED".equals(field.getStatus())) {
+                continue;
+            }
+            if (field.getExpression() != null && !field.getExpression().trim().isEmpty()) {
+                try {
+                    Object result = expressionService.dryRun(field.getExpression(), env);
+                    env.put(key, result);
+                } catch (Exception e) {
+                    env.put(key, "Error: " + e.getMessage());
+                }
+            }
+        }
+        return env;
+    }
 }
