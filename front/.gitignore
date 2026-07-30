@@ -1,0 +1,13 @@
+*.iml
+../.idea/
+.idea
+node_modules/
+node_modules
+dist
+*.zip
+#*.json
+.history
+.DS_Store
+learn
+unused-files.json
+yarn.lock
