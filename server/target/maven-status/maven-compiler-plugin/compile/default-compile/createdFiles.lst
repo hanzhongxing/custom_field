@@ -1,0 +1,10 @@
+com/customfield/service/CustomFieldService.class
+com/customfield/util/FileStorageUtil.class
+com/customfield/controller/CustomFieldController.class
+com/customfield/Application.class
+com/customfield/util/FileStorageUtil$1.class
+com/customfield/model/CustomField.class
+com/customfield/model/SimulateRequest.class
+com/customfield/model/FieldRelation.class
+com/customfield/service/ExpressionService.class
+com/customfield/model/Result.class

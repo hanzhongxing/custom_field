@@ -1,0 +1,17 @@
+[ {
+  "key" : "custom_item_1",
+  "name" : "基础天数",
+  "description" : "基础天数",
+  "type" : "NUMERIC",
+  "expression" : "1",
+  "status" : "ENABLED",
+  "sortOrder" : 1
+}, {
+  "key" : "custom_item_2",
+  "name" : "2倍基础天数",
+  "description" : "2倍基础天数",
+  "type" : "NUMERIC",
+  "expression" : "custom_item_1*2",
+  "status" : "ENABLED",
+  "sortOrder" : 2
+} ]

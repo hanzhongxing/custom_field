@@ -1,0 +1,10 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: custom-field-server
+
+app:
+  data-dir: ../data
+
