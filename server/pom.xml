@@ -45,9 +45,9 @@
         <dependency>
             <groupId>com.googlecode.aviator</groupId>
             <artifactId>aviator</artifactId>
-            <version>5.4.3</version>
+            <version>5.4.4</version>
         </dependency>
-        
+
         <!-- Jackson for JSON (included in spring-boot-starter-web, but explicit here is fine) -->
         <!-- We use Jackson databind -->
         <dependency>

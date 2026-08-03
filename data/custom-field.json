@@ -30,4 +30,52 @@
   "expression" : "sysdate()",
   "status" : "ENABLED",
   "sortOrder" : 4
+}, {
+  "key" : "custom_item_5",
+  "name" : "OA",
+  "description" : "用户oa",
+  "type" : "TEXT",
+  "expression" : "\"hanzhongxing\"",
+  "status" : "ENABLED",
+  "sortOrder" : 5
+}, {
+  "key" : "custom_item_6",
+  "name" : "用户姓名",
+  "description" : "用户姓名",
+  "type" : "TEXT",
+  "expression" : "\"韩忠兴\"",
+  "status" : "ENABLED",
+  "sortOrder" : 6
+}, {
+  "key" : "custom_item_7",
+  "name" : "用户全称",
+  "description" : "用户全称",
+  "type" : "TEXT",
+  "expression" : "custom_item_6+\"(\"+ custom_item_5+\")\"",
+  "status" : "ENABLED",
+  "sortOrder" : 7
+}, {
+  "key" : "custom_item_8",
+  "name" : "当前日期的前一天",
+  "description" : "当前日期的前一天",
+  "type" : "DATE",
+  "expression" : "use java.util.Date; \nreturn new Date(now()- 86400000);",
+  "status" : "ENABLED",
+  "sortOrder" : 8
+}, {
+  "key" : "custom_item_9",
+  "name" : "循环计数",
+  "description" : "循环计数",
+  "type" : "NUMERIC",
+  "expression" : "let count=0;\nlet i=0;\nfor i in range(0,custom_item_3){\ncount=count+i;\ni=i+1;\n}\nreturn count;",
+  "status" : "ENABLED",
+  "sortOrder" : 9
+}, {
+  "key" : "custom_item_10",
+  "name" : "昨天此时",
+  "description" : "昨天此时的日期",
+  "type" : "DATE",
+  "expression" : "let oneDayMs = 86400000;\nlet yesterdayDate = new java.util.Date(now() - oneDayMs);\nreturn date_to_string(yesterdayDate, 'yyyy-MM-dd');",
+  "status" : "ENABLED",
+  "sortOrder" : 10
 } ]

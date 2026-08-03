@@ -34,3 +34,6 @@ gen
 # opt log
 opt
 target/
+/target
+/target/
+/target/*
