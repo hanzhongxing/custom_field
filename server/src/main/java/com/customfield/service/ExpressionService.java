@@ -1,6 +1,8 @@
 package com.customfield.service;
 
 import com.googlecode.aviator.AviatorEvaluator;
+import com.googlecode.aviator.AviatorEvaluatorInstance;
+import com.googlecode.aviator.EvalMode;
 import com.googlecode.aviator.Expression;
 import com.googlecode.aviator.runtime.JavaMethodReflectionFunctionMissing;
 import org.springframework.stereotype.Service;
@@ -11,9 +13,12 @@ import java.util.Map;
 @Service
 public class ExpressionService {
 
+    private final static AviatorEvaluatorInstance aviator= AviatorEvaluator.newInstance(EvalMode.ASM);
+
     @PostConstruct
     public void init(){
-        AviatorEvaluator.setFunctionMissing(JavaMethodReflectionFunctionMissing.getInstance());
+        aviator.setCachedExpressionByDefault(true);
+        aviator.setFunctionMissing(JavaMethodReflectionFunctionMissing.getInstance());
     }
 
     /**
@@ -26,7 +31,7 @@ public class ExpressionService {
         }
 
         try {
-            Expression expression = AviatorEvaluator.compile(expressionStr);
+            Expression expression = aviator.compile(expressionStr);
             return expression.getVariableNames();
         } catch (Exception e) {
             throw new RuntimeException("Invalid expression: " + e.getMessage());
@@ -42,7 +47,7 @@ public class ExpressionService {
         }
 
         try {
-            Expression expression = AviatorEvaluator.compile(expressionStr);
+            Expression expression = aviator.compile(expressionStr);
             return expression.execute(env);
         } catch (Exception e) {
             throw new RuntimeException("Execution error: " + e.getMessage());

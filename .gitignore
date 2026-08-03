@@ -36,3 +36,6 @@ opt
 target/
 data
 data/
+/server/target
+/server/target/
+/server/target/*
