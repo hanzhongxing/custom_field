@@ -1,9 +1,6 @@
 package com.customfield.service;
 
-import com.googlecode.aviator.AviatorEvaluator;
-import com.googlecode.aviator.AviatorEvaluatorInstance;
-import com.googlecode.aviator.EvalMode;
-import com.googlecode.aviator.Expression;
+import com.googlecode.aviator.*;
 import com.googlecode.aviator.runtime.JavaMethodReflectionFunctionMissing;
 import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
@@ -18,6 +15,7 @@ public class ExpressionService {
     @PostConstruct
     public void init(){
         aviator.setCachedExpressionByDefault(true);
+        aviator.setOption(Options.SERIALIZABLE, true);
         aviator.setFunctionMissing(JavaMethodReflectionFunctionMissing.getInstance());
     }
 
